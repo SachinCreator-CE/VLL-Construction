@@ -1,21 +1,23 @@
-# VLL Construction
+# VLL Construction & Real Estate
 
-Website for VLL Construction, a real estate and construction company. Scrolling the page builds a tower in 3D, from the first dig to a lit-up skyline. Further down, buyers can browse property types, see how buying works and estimate a home-loan EMI. Clients can also hire VLL to build on their own land.
+Website for VLL, a developer and builder of luxury residences. The page tells the story of a tower being built, in 3D, from the first survey pin to a lit skyline. It then presents the two ways to buy: own a residence in a VLL tower, or commission a private home on your own land.
 
 ## What's on the page
 
-- **The build**, a scroll-driven three.js scene in six stages:
-  1. **Site survey**: stakes, string lines, a "Bookings open" board and a blueprint outline of the tower
-  2. **Excavation**: an excavator digs an 18 × 18 m pit and loads the spoil into a truck
-  3. **Foundation**: 16 piles, two rebar mats and the raft pour
-  4. **Superstructure**: 728 modules placed block by block, with a climbing tower crane
-  5. **Envelope**: glass facade panels go on, the crane comes down, the spire goes up
-  6. **Handover**: the city rises around the tower and the lights come on
-- A live site readout (depth, concrete, modules, height) that follows the build, with buttons to jump between stages
-- **Watch the build** plays the whole story as a timelapse
-- **Homes**: a 3D model table with tabs for apartments, villas, plots and commercial spaces, the five steps of buying a home, and an EMI calculator
-- **Construction**: services cards that tilt in 3D, and CSS 3D models of the sectors VLL builds in
-- An enquiry form for buyers, investors and construction clients
+- **The build**: a cinematic, scroll-driven three.js scene in six chapters:
+  1. **The plot**: brass survey pins, laser lines and a traced blueprint of the tower
+  2. **The ground**: the soil layers lift out of an 18 × 18 m, 10.5 m deep pit
+  3. **The foundation**: 16 piles, two rebar mats and the raft pour
+  4. **The structure**: 728 stone modules lowered level by level beside a climbing crane
+  5. **The facade**: tinted glass, bronze fins, sky gardens, the crown lantern and spire
+  6. **The skyline**: night falls, the city rises around the tower and the lights come on
+- **Watch the build** plays the whole story in letterbox cinema mode
+- A chapter rail and live depth, level and height readouts
+- **Why VLL**: a statement whose words light up as you scroll, and three brand pillars
+- **Residences**: indicative floor plans that tilt in 3D and lay flat on hover, with specifications and "price on request"
+- **Bespoke homes**: the five-step commission process and a materials palette
+- **Engineering** capabilities, and a private enquiry form
+- Film grain, a custom cursor on desktop, and reduced-motion support
 
 ## Run it locally
 
@@ -36,11 +38,10 @@ Go to **Settings → Pages**, choose **Deploy from a branch**, then pick `main` 
 | File | What it holds |
 | --- | --- |
 | `index.html` | Page markup |
-| `styles.css` | Layout and theme (light "whiteprint" and dark "blueprint") |
-| `main.js` | The 3D scene, model table, EMI calculator and page behaviour. three.js r128 loads from cdnjs. |
+| `styles.css` | The graphite-and-brass design (Bodoni Moda and Jost from Google Fonts) |
+| `main.js` | The 3D scene, floor plans, scroll effects and page behaviour. three.js r128 loads from cdnjs. |
 
 ## Before going live
 
 - The enquiry form doesn't send anything yet. Connect it to a form service or your own backend.
-- The property and service descriptions are placeholders. Replace them with VLL's real projects, sizes, prices and approvals, and add contact details.
-- The EMI calculator is an estimate. Check the default interest rate against current bank rates.
+- Residence plans, areas, amenities and the brand statements are drafts. Replace them with VLL's real projects and confirmed claims, and add contact details.

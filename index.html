@@ -4,315 +4,271 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>VLL Construction</title>
-<meta name="description" content="VLL Construction builds from the first dig to the skyline. Scroll to watch a tower go up block by block.">
+<meta name="description" content="VLL builds and sells residences above the city, and builds private homes for clients on their own land.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,500;1,400;1,500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&display=swap">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <canvas id="stage" aria-hidden="true"></canvas>
-<p class="stage-note" id="stageNote" hidden>The 3D site view couldn't start on this device. The rest of the page works as normal.</p>
+<div class="scrim" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="letterbox" aria-hidden="true"></div>
+<div class="cursor" id="cursor" aria-hidden="true"></div>
+<p class="stage-note" id="stageNote" hidden>The 3D view couldn't start on this device. The rest of the page works as normal.</p>
 
-<header class="topbar">
-  <a class="brand" href="#top" aria-label="VLL Construction, back to top">
-    <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="17" width="7" height="11" fill="var(--ink)"/><rect x="12.5" y="10" width="7" height="18" fill="var(--ink)"/><rect x="22" y="3" width="7" height="25" fill="var(--accent)"/><rect x="1" y="29.5" width="30" height="1.6" fill="var(--ink)"/></svg>
-    <span class="brand-word">VLL</span><span class="brand-sub">Construction</span>
+<header class="topbar" id="topbar">
+  <a class="brand" href="#top" aria-label="VLL, back to top">
+    <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="1" y="1" width="38" height="38" stroke-width="1"/><path d="M7 11l6 19 6-19"/><path d="M22 11v19h6"/><path d="M30 7v23h5"/></svg>
+    <span class="brand-mark">VLL</span><span class="brand-sub">Construction<br>&amp; Real Estate</span>
   </a>
-  <nav class="topnav" aria-label="Sections">
-    <a href="#build">The build</a><a href="#homes">Homes</a><a href="#services">Construction</a><a href="#contact">Contact</a>
-  </nav>
-  <a class="btn btn-accent btn-sm" href="#contact">Book a site visit</a>
+  <nav class="topnav" aria-label="Sections"><a href="#build">The build</a><a href="#residences">Residences</a><a href="#bespoke">Bespoke homes</a><a href="#contact">Enquire</a></nav>
+  <a class="btn btn-sm" href="#contact">Private viewing</a>
 </header>
 
-<aside class="readout" id="readout" aria-label="Site readout">
-  <div class="ro-head"><span>VLL · Tower 01</span><span>Site readout</span></div>
-  <div class="ro-stage"><span id="roSheet">S-01</span><b id="roName">Site survey</b></div>
-  <ol class="ro-steps">
-    <li><button type="button" data-go="0" aria-label="Go to S-01, site survey"><i></i></button></li>
-    <li><button type="button" data-go="1" aria-label="Go to S-02, excavation"><i></i></button></li>
-    <li><button type="button" data-go="2" aria-label="Go to S-03, foundation"><i></i></button></li>
-    <li><button type="button" data-go="3" aria-label="Go to S-04, superstructure"><i></i></button></li>
-    <li><button type="button" data-go="4" aria-label="Go to S-05, envelope"><i></i></button></li>
-    <li><button type="button" data-go="5" aria-label="Go to S-06, skyline"><i></i></button></li>
-  </ol>
-  <dl class="ro-grid">
-    <div><dt>Depth</dt><dd id="roDepth">0.0 m</dd></div>
-    <div><dt>Concrete</dt><dd id="roConc">0 m³</dd></div>
-    <div><dt>Modules</dt><dd id="roMods">0</dd></div>
-    <div><dt>Height</dt><dd id="roHeight">0.0 m</dd></div>
-  </dl>
-</aside>
-
-<div class="timelapse" id="timelapse" hidden><span>Timelapse playing</span><button class="btn" type="button" id="stopBtn">Stop</button></div>
+<ol class="rail" id="rail" aria-label="Chapters of the build">
+  <li><button type="button" data-go="0"><span>The plot</span><em>i</em><i></i></button></li>
+  <li><button type="button" data-go="1"><span>The ground</span><em>ii</em><i></i></button></li>
+  <li><button type="button" data-go="2"><span>The foundation</span><em>iii</em><i></i></button></li>
+  <li><button type="button" data-go="3"><span>The structure</span><em>iv</em><i></i></button></li>
+  <li><button type="button" data-go="4"><span>The facade</span><em>v</em><i></i></button></li>
+  <li><button type="button" data-go="5"><span>The skyline</span><em>vi</em><i></i></button></li>
+</ol>
+<dl class="metrics" id="metrics" aria-label="The build so far">
+  <div><dt>Depth</dt><dd id="mDepth">0.0<small>m</small></dd></div>
+  <div><dt>Level</dt><dd id="mLevel">–</dd></div>
+  <div><dt>Height</dt><dd id="mHeight">0<small>m</small></dd></div>
+</dl>
+<div class="timelapse" id="timelapse" hidden><span>Playing the build</span><button class="btn btn-sm" type="button" id="stopBtn">Stop</button></div>
 
 <main id="top">
   <div class="story" id="build">
-    <section class="step hero" style="--len:115vh" aria-label="Site survey">
-      <div class="sheet"><div class="sheet-body">
-        <p class="eyebrow"><span>Real estate &amp; construction</span><span><b>S-01</b> · Site survey</span></p>
-        <h1>From the first dig to the <em>skyline</em>.</h1>
-        <p class="lede">We build homes, offices and towers, and we sell them too. Buy from us, invest with us, or have us build on your plot. Scroll down and watch one go up, block by block.</p>
+    <section class="chapter hero" style="--len:125vh" aria-label="The plot">
+      <div class="caption">
+        <p class="label"><b>i</b>VLL Construction &amp; Real Estate</p>
+        <h1>Built to be <em>inherited</em>.</h1>
+        <p class="lede">Residences above the city, and private homes built on your own land. Planned, engineered and constructed by one team, from the soil to the skyline.</p>
         <div class="actions">
-          <button class="btn btn-accent" type="button" id="playBtn"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z" fill="currentColor"/></svg>Watch the build</button>
-          <a class="btn" href="#homes">Find a home</a>
+          <button class="btn btn-brass" type="button" id="playBtn"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1 0.5v9l8-4.5z" fill="currentColor"/></svg>Watch the build</button>
+          <a class="btn" href="#residences">View residences</a>
         </div>
-        <p class="hint"><i></i>Scroll to build</p>
-      </div>
-      <dl class="spec"><div><dt>Plot</dt><dd>42 × 42 m</dd></div><div><dt>Footprint</dt><dd>18 × 18 m</dd></div><div><dt>Datum</dt><dd>RL ±0.00</dd></div></dl>
+        <p class="scroll-cue"><i></i>Scroll to begin</p>
       </div>
     </section>
 
-    <section class="step" style="--len:170vh" aria-label="Excavation">
-      <div class="sheet"><div class="sheet-body">
-        <p class="eyebrow"><span><b>S-02</b> · Excavation</span><span>Sheet 2 of 6</span></p>
-        <h2>Break ground</h2>
-        <p>Every tower starts below the surface. Our earthworks crews set out the grid, shore the sides and cut the pit down to formation level, one bucket at a time.</p>
-      </div>
-      <dl class="spec"><div><dt>Cut</dt><dd>18 × 18 m</dd></div><div><dt>Depth</dt><dd>RL −10.50 m</dd></div><div><dt>Spoil</dt><dd>3,402 m³</dd></div></dl>
-      </div>
-    </section>
-
-    <section class="step" style="--len:150vh" aria-label="Foundation">
-      <div class="sheet"><div class="sheet-body">
-        <p class="eyebrow"><span><b>S-03</b> · Foundation</span><span>Sheet 3 of 6</span></p>
-        <h2>Pile, tie, pour</h2>
-        <p>Bored piles carry the load down to firm strata. We tie two mats of reinforcement over them and pour the raft in one continuous session, so it cures as a single slab.</p>
-      </div>
-      <dl class="spec"><div><dt>Piles</dt><dd>16 × Ø600</dd></div><div><dt>Rebar</dt><dd>T25 @ 150</dd></div><div><dt>Raft</dt><dd>1,134 m³ M40</dd></div></dl>
+    <section class="chapter" style="--len:175vh" aria-label="The ground">
+      <div class="caption">
+        <p class="label"><b>ii</b>The ground</p>
+        <h2>What lies <em>beneath</em> matters most.</h2>
+        <p>Before a single floor rises, we study the soil, shore the sides and cut the basement to its exact formation level. It is the work no one sees, and the reason a building lasts.</p>
+        <dl class="facts"><div><dt>Excavation</dt><dd>18 × 18 m</dd></div><div><dt>Depth</dt><dd>10.5 m</dd></div></dl>
       </div>
     </section>
 
-    <section class="step" style="--len:250vh" aria-label="Superstructure">
-      <div class="sheet"><div class="sheet-body">
-        <p class="eyebrow"><span><b>S-04</b> · Superstructure</span><span>Sheet 4 of 6</span></p>
-        <h2>Block by block</h2>
-        <p>The core and frame rise one level at a time. A climbing tower crane rides up with the building and lifts every module into place on a steady floor cycle.</p>
-      </div>
-      <dl class="spec"><div><dt>Levels</dt><dd>B2 + 36</dd></div><div><dt>Floor to floor</dt><dd>3.5 m</dd></div><div><dt>Modules</dt><dd>728</dd></div></dl>
-      </div>
-    </section>
-
-    <section class="step" style="--len:150vh" aria-label="Envelope">
-      <div class="sheet"><div class="sheet-body">
-        <p class="eyebrow"><span><b>S-05</b> · Envelope</span><span>Sheet 5 of 6</span></p>
-        <h2>Close it in</h2>
-        <p>Unitised glass panels go on floor by floor, sealed against monsoon rain and tuned to cut heat gain. Then the crane comes down and the spire goes up.</p>
-      </div>
-      <dl class="spec"><div><dt>Facade units</dt><dd>144</dd></div><div><dt>Glazing</dt><dd>Low-E DGU</dd></div><div><dt>Spire tip</dt><dd>147 m</dd></div></dl>
+    <section class="chapter" style="--len:155vh" aria-label="The foundation">
+      <div class="caption">
+        <p class="label"><b>iii</b>The foundation</p>
+        <h2>Poured in one <em>unbroken</em> session.</h2>
+        <p>Sixteen bored piles reach down to firm strata. Two mats of steel are tied above them, and the raft is poured without a pause so it cures as a single monolithic slab.</p>
+        <dl class="facts"><div><dt>Piles</dt><dd>16</dd></div><div><dt>Raft</dt><dd>1,134 m³</dd></div></dl>
       </div>
     </section>
 
-    <section class="step" style="--len:200vh" aria-label="Skyline">
-      <div class="sheet"><div class="sheet-body">
-        <p class="eyebrow"><span><b>S-06</b> · Skyline</span><span>Sheet 6 of 6</span></p>
-        <h2>Hand over the keys</h2>
-        <p>Lights on, landscaping in, snag list closed. The keys go to the families and businesses who bought in, and the city has one more landmark. Then we start on the next one.</p>
+    <section class="chapter" style="--len:260vh" aria-label="The structure">
+      <div class="caption">
+        <p class="label"><b>iv</b>The structure</p>
+        <h2>Raised floor by floor, <em>block by block</em>.</h2>
+        <p>The core and frame climb one level at a time, with a tower crane rising alongside. Every module is set, checked and recorded before the next one is lifted.</p>
+        <dl class="facts"><div><dt>Levels</dt><dd>38</dd></div><div><dt>Modules</dt><dd>728</dd></div></dl>
+      </div>
+    </section>
+
+    <section class="chapter" style="--len:160vh" aria-label="The facade">
+      <div class="caption">
+        <p class="label"><b>v</b>The facade</p>
+        <h2>Glass, bronze and <em>light</em>.</h2>
+        <p>Double-glazed panels framed by bronze fins close the tower in, floor by floor. Sky gardens are planted on the terraces, the crane comes down, and the crown takes its place.</p>
+        <dl class="facts"><div><dt>Facade units</dt><dd>144</dd></div><div><dt>Height</dt><dd>147 m</dd></div></dl>
+      </div>
+    </section>
+
+    <section class="chapter" style="--len:210vh" aria-label="The skyline">
+      <div class="caption">
+        <p class="label"><b>vi</b>The skyline</p>
+        <h2>Your address, <em>above the city</em>.</h2>
+        <p>The lights come on, the gardens settle in and the keys are handed over. From here on, the city is the view.</p>
         <div class="actions">
-          <a class="btn btn-accent" href="#homes">Find a home</a>
+          <a class="btn btn-brass" href="#contact" data-intent="Own a residence">Arrange a private viewing</a>
           <button class="btn" type="button" id="againBtn">Build it again</button>
         </div>
-      </div>
-      <dl class="spec"><div><dt>Height</dt><dd>147 m</dd></div><div><dt>Levels</dt><dd>38</dd></div><div><dt>Status</dt><dd>Handed over</dd></div></dl>
       </div>
     </section>
   </div>
 
-  <section class="band" id="homes" aria-labelledby="homesTitle">
+  <section class="band" id="promise" aria-labelledby="promiseTitle">
     <div class="wrap">
-      <div class="head-row">
-        <div><p class="kicker">Real estate</p><h2 id="homesTitle">Homes we build and sell</h2></div>
-        <p>We develop our own projects and sell them directly, so you deal with the builder from the day you book to the day you get the keys.</p>
+      <p class="label" id="promiseTitle">Why VLL</p>
+      <p class="statement" id="statement">We are the developer and the builder. The people who dig your foundation are the people who hand you the keys, so every layer, from the soil report to the last bronze fitting, answers to one <span class="gold">name</span>.</p>
+      <div class="pillars">
+        <div><b>i</b><h3>We build what we sell</h3><p>Our residences are built by our own crews, so the company you buy from is the company that built your home.</p></div>
+        <div><b>ii</b><h3>Engineering you can trace</h3><p>Soil, piles, raft, frame and facade are recorded at every stage, and the records come with your home.</p></div>
+        <div><b>iii</b><h3>Made to last generations</h3><p>Stone, bronze and glass chosen for how they age, detailed to be maintained rather than replaced.</p></div>
       </div>
-      <div class="homes">
-        <div class="table">
-          <p class="table-label tl">Model table · <b id="modelName">Apartments</b></p>
-          <div class="model"><div class="iso" id="homeModel"></div></div>
-          <p class="table-label bl">Scale 1:500</p>
-          <p class="table-label br"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 4l3.5 12L12 13.5 8.5 16z" fill="currentColor"/></svg>N</p>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true"><div class="marquee-track" id="marquee"><span>Residences</span><span>·</span><span>Bespoke homes</span><span>·</span><span>Built to be inherited</span><span>·</span><span>Residences</span><span>·</span><span>Bespoke homes</span></div></div>
+
+  <section class="band" id="paths" aria-labelledby="pathsTitle">
+    <div class="wrap">
+      <div class="intro">
+        <div><p class="label">Two ways home</p><h2 id="pathsTitle">Own a residence, or <em>commission</em> one.</h2></div>
+        <p>Buy a finished residence in a tower we built, or have us design and build a private home on your land. Either way, one company answers for every detail.</p>
+      </div>
+      <div class="paths">
+        <a class="path" href="#residences">
+          <svg viewBox="0 0 400 250" aria-hidden="true"><path class="ln" pathLength="1" d="M16 236H384"/><path class="ln" pathLength="1" d="M168 236V104H180V66H190V48H200V12M200 48H210V66H220V104H232V236"/><path class="lt" pathLength="1" d="M168 112H232M168 120H232M168 128H232M168 136H232M168 144H232M168 152H232M168 160H232M168 168H232M168 176H232M168 184H232M168 192H232M168 200H232M168 208H232M168 216H232M168 224H232M180 74H220M180 82H220M180 90H220M180 98H220"/><path class="lt" pathLength="1" d="M184 104V236M200 104V236M216 104V236"/><path class="ln" pathLength="1" d="M64 236V176H112V236M112 236V196H142V236M262 236V184H304V236M304 236V158H338V236"/><circle class="ln" pathLength="1" cx="332" cy="48" r="11"/></svg>
+          <p class="label">Residences</p>
+          <h3>Own a residence</h3>
+          <p>Sky residences, duplexes and penthouses in towers we develop and build ourselves.</p>
+          <span class="more">View residences<i></i></span>
+        </a>
+        <a class="path" href="#bespoke">
+          <svg viewBox="0 0 400 250" aria-hidden="true"><path class="ln" pathLength="1" d="M16 214H384"/><path class="ln" pathLength="1" d="M92 214V160H250V214"/><path class="ln" pathLength="1" d="M138 160V118H306V160H250"/><path class="lt" pathLength="1" d="M132 160V214M172 160V214M212 160V214M138 112H306M178 118V160M218 118V160M258 118V160"/><path class="ln" pathLength="1" d="M250 214H368M262 222H356M274 230H344"/><circle class="ln" pathLength="1" cx="58" cy="160" r="26"/><path class="ln" pathLength="1" d="M58 186V214"/><circle class="lt" pathLength="1" cx="350" cy="178" r="15"/><path class="lt" pathLength="1" d="M350 193V214"/><circle class="lt" pathLength="1" cx="318" cy="56" r="14"/></svg>
+          <p class="label">Bespoke homes</p>
+          <h3>Commission a home</h3>
+          <p>A private residence on your land, from the first sketch to the last fitting, under one contract.</p>
+          <span class="more">How it works<i></i></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band-2" id="residences" aria-labelledby="resTitle">
+    <div class="wrap">
+      <div class="intro">
+        <div><p class="label">Residences</p><h2 id="resTitle">Homes in the <em>upper floors</em> of the city.</h2></div>
+        <p>Every residence is planned around privacy, light and the view. Point at a plan, or tap it, to lay it flat.</p>
+      </div>
+      <div class="res">
+        <div class="plan-stage" id="planStage" tabindex="0" aria-label="Floor plan. Hover or focus to lay it flat.">
+          <div class="plan" id="plan"></div>
+          <p class="plan-hint">Indicative plan</p>
+          <p class="plan-note" id="planNote">The Sky Residence</p>
         </div>
         <div>
-          <div class="tabs" role="tablist" aria-label="Property types">
-            <button class="tab" type="button" role="tab" id="tab-apartments" data-key="apartments" aria-controls="pn-apartments" aria-selected="true">Apartments</button>
-            <button class="tab" type="button" role="tab" id="tab-villas" data-key="villas" aria-controls="pn-villas" aria-selected="false" tabindex="-1">Villas</button>
-            <button class="tab" type="button" role="tab" id="tab-plots" data-key="plots" aria-controls="pn-plots" aria-selected="false" tabindex="-1">Plots</button>
-            <button class="tab" type="button" role="tab" id="tab-commercial" data-key="commercial" aria-controls="pn-commercial" aria-selected="false" tabindex="-1">Commercial</button>
+          <div class="tabs" role="tablist" aria-label="Residence types">
+            <button class="tab" type="button" role="tab" id="tab-sky" data-key="sky" aria-controls="pn-sky" aria-selected="true">Sky residence</button>
+            <button class="tab" type="button" role="tab" id="tab-duplex" data-key="duplex" aria-controls="pn-duplex" aria-selected="false" tabindex="-1">Duplex</button>
+            <button class="tab" type="button" role="tab" id="tab-penthouse" data-key="penthouse" aria-controls="pn-penthouse" aria-selected="false" tabindex="-1">Penthouse</button>
           </div>
-          <div class="panel" role="tabpanel" id="pn-apartments" data-key="apartments" aria-labelledby="tab-apartments">
-            <h3>Apartments</h3>
-            <div class="chips"><span class="chip on">For sale</span><span class="chip">Ready to move</span><span class="chip">Under construction</span></div>
-            <p>2 and 3 BHK homes in towers like the one above, with lifts, power backup, covered parking and shared amenities.</p>
-            <ul class="ticks"><li>Floor plans with the carpet area of every unit</li><li>Pick your floor and the way your home faces</li><li>Construction updates until you get the keys</li></ul>
-            <a class="btn btn-accent" href="#contact" data-intent="Buy a home">Book a site visit</a>
+          <div class="panel" role="tabpanel" id="pn-sky" data-key="sky" aria-labelledby="tab-sky">
+            <h3>The Sky <em>Residence</em></h3>
+            <p>Four bedrooms on a single floor, a living room that runs the width of the tower, and a terrace that wraps two sides.</p>
+            <dl class="specs"><div><dt>Bedrooms</dt><dd>4</dd></div><div><dt>Carpet area</dt><dd>About 3,800 sq ft</dd></div><div><dt>Ceiling height</dt><dd>3.3 m</dd></div><div><dt>Arrival</dt><dd>Private lift lobby</dd></div></dl>
+            <p class="price">Price <b>on request</b></p>
+            <a class="btn btn-brass" href="#contact" data-intent="Own a residence">Arrange a private viewing</a>
           </div>
-          <div class="panel" role="tabpanel" id="pn-villas" data-key="villas" aria-labelledby="tab-villas" hidden>
-            <h3>Villas &amp; row houses</h3>
-            <div class="chips"><span class="chip on">For sale</span><span class="chip">Gated community</span></div>
-            <p>Independent homes in gated layouts, each with its own garden, terrace and parking.</p>
-            <ul class="ticks"><li>Plot area and built-up area on every plan</li><li>Choose your finishes before handover</li><li>Clubhouse and landscaped common areas</li></ul>
-            <a class="btn btn-accent" href="#contact" data-intent="Buy a home">Book a site visit</a>
+          <div class="panel" role="tabpanel" id="pn-duplex" data-key="duplex" aria-labelledby="tab-duplex" hidden>
+            <h3>The <em>Duplex</em></h3>
+            <p>Five bedrooms over two floors, joined by a double-height living room and a private stair.</p>
+            <dl class="specs"><div><dt>Bedrooms</dt><dd>5</dd></div><div><dt>Carpet area</dt><dd>About 6,200 sq ft</dd></div><div><dt>Living room</dt><dd>Double height</dd></div><div><dt>Outdoors</dt><dd>Garden terrace</dd></div></dl>
+            <p class="price">Price <b>on request</b></p>
+            <a class="btn btn-brass" href="#contact" data-intent="Own a residence">Arrange a private viewing</a>
           </div>
-          <div class="panel" role="tabpanel" id="pn-plots" data-key="plots" aria-labelledby="tab-plots" hidden>
-            <h3>Plots</h3>
-            <div class="chips"><span class="chip on">For sale</span><span class="chip">Build with us</span></div>
-            <p>Residential plots in planned layouts with roads, drains and power lines laid. Buy the plot alone, or have us build your home on it.</p>
-            <ul class="ticks"><li>Layout plan and survey number for every plot</li><li>Roads and services in before registration</li><li>Home designs to choose from, built by our crews</li></ul>
-            <a class="btn btn-accent" href="#contact" data-intent="Buy a plot">Book a site visit</a>
+          <div class="panel" role="tabpanel" id="pn-penthouse" data-key="penthouse" aria-labelledby="tab-penthouse" hidden>
+            <h3>The <em>Penthouse</em></h3>
+            <p>The crown of the tower, with a great room, a private pool terrace and views in every direction.</p>
+            <dl class="specs"><div><dt>Bedrooms</dt><dd>5 and a study</dd></div><div><dt>Carpet area</dt><dd>About 9,500 sq ft</dd></div><div><dt>Outdoors</dt><dd>Pool terrace</dd></div><div><dt>Arrival</dt><dd>Private lift</dd></div></dl>
+            <p class="price">Price <b>on request</b></p>
+            <a class="btn btn-brass" href="#contact" data-intent="Own a residence">Arrange a private viewing</a>
           </div>
-          <div class="panel" role="tabpanel" id="pn-commercial" data-key="commercial" aria-labelledby="tab-commercial" hidden>
-            <h3>Commercial spaces</h3>
-            <div class="chips"><span class="chip on">For sale</span><span class="chip on">For lease</span></div>
-            <p>Offices and shop fronts in our mixed-use buildings, on podium floors with street frontage and parking.</p>
-            <ul class="ticks"><li>Bare-shell or fitted-out units</li><li>Unit sizes to suit a single shop or a whole floor</li><li>Buy outright or lease</li></ul>
-            <a class="btn btn-accent" href="#contact" data-intent="Buy or lease commercial space">Book a site visit</a>
-          </div>
+          <p class="small-print">Plans, areas and specifications are indicative and are confirmed for each project.</p>
         </div>
       </div>
+      <div class="amen">
+        <div><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 18v-6a3 3 0 0 1 3-3h14a3 3 0 0 1 3 3v6M4 18h24v6H4zM7 24v3M25 24v3"/></svg><div><h4>Sky lounge</h4><p>A residents' lounge near the crown, with the city on every side.</p></div></div>
+        <div><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 21c3 0 3-2 6.5-2s3.5 2 6.5 2 3-2 6.5-2 3.5 2 6.5 2M3 27c3 0 3-2 6.5-2s3.5 2 6.5 2 3-2 6.5-2 3.5 2 6.5 2M10 16V6a2 2 0 0 1 4 0M18 16V6a2 2 0 0 1 4 0M10 10h8"/></svg><div><h4>Infinity-edge pool</h4><p>Heated, with a deck for early mornings and late evenings.</p></div></div>
+        <div><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 28C8 24 6 14 8 5c7 1 14 6 14 14a9 9 0 0 1-6 9zM16 28c0-7 1-12 5-17"/></svg><div><h4>Spa and fitness</h4><p>Treatment rooms, steam and sauna, and a gym with trainers on call.</p></div></div>
+        <div><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 6h24v14H4zM9 26h14M16 20v6"/></svg><div><h4>Private cinema</h4><p>A screening room residents can book for family evenings.</p></div></div>
+        <div><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 24h22M7 24a9 9 0 0 1 18 0M16 15v-3M13 12h6M4 28h24"/></svg><div><h4>Concierge</h4><p>Valet, deliveries and housekeeping, arranged from the lobby.</p></div></div>
+        <div><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4l10 4v7c0 7-4.5 11-10 13C10.5 26 6 22 6 15V8zM12 16l3 3 5-6"/></svg><div><h4>Layered security</h4><p>Access control from the gate to the lift lobby to your door.</p></div></div>
+      </div>
+    </div>
+  </section>
 
-      <ol class="journey" aria-label="Buying a home with VLL">
-        <li><b>01</b><h4>Visit</h4><p>See the site and a model flat with our sales team.</p></li>
-        <li><b>02</b><h4>Book</h4><p>Reserve your unit with a booking amount.</p></li>
-        <li><b>03</b><h4>Agreement &amp; loan</h4><p>Sign the agreement for sale. We help with the home loan paperwork.</p></li>
-        <li><b>04</b><h4>Watch it rise</h4><p>Get updates on your tower, floor by floor.</p></li>
-        <li><b>05</b><h4>Keys</h4><p>Registration, handover and your first night in.</p></li>
+  <section class="band" id="bespoke" aria-labelledby="bespokeTitle">
+    <div class="wrap">
+      <div class="intro">
+        <div><p class="label">Bespoke homes</p><h2 id="bespokeTitle">A private residence, <em>built on your land</em>.</h2></div>
+        <p>Bring us a plot and the way you want to live. Our architects, engineers and site teams take it from the first sketch to the day you move in, under one contract.</p>
+      </div>
+      <ol class="steps">
+        <li><b>i</b><h4>Brief</h4><p>We walk the plot with you and write down how you want to live.</p></li>
+        <li><b>ii</b><h4>Design</h4><p>Architecture, interiors and structure, developed together and reviewed in 3D.</p></li>
+        <li><b>iii</b><h4>Approvals</h4><p>Drawings, permits and a schedule you sign off before ground is broken.</p></li>
+        <li><b>iv</b><h4>Construction</h4><p>Our own crews on site, with progress reported to you every week.</p></li>
+        <li><b>v</b><h4>Handover</h4><p>Snags closed, systems commissioned, and the keys and records in your hands.</p></li>
       </ol>
-
-      <div class="emi-wrap" id="emi">
-        <p class="kicker">EMI estimate</p>
-        <h3>Plan your home loan</h3>
-        <div class="emi">
-          <div class="emi-in">
-            <div class="rng"><div class="rng-top"><label for="ePrice">Home price</label><output id="oPrice" for="ePrice">₹75 L</output></div>
-              <input type="range" id="ePrice" min="20" max="300" step="1" value="75"><div class="rng-ends"><span>₹20 L</span><span>₹3 Cr</span></div></div>
-            <div class="rng"><div class="rng-top"><label for="eDown">Down payment</label><output id="oDown" for="eDown">20% · ₹15 L</output></div>
-              <input type="range" id="eDown" min="10" max="50" step="1" value="20"><div class="rng-ends"><span>10%</span><span>50%</span></div></div>
-            <div class="rng"><div class="rng-top"><label for="eRate">Interest rate</label><output id="oRate" for="eRate">8.50% a year</output></div>
-              <input type="range" id="eRate" min="6" max="12" step="0.05" value="8.5"><div class="rng-ends"><span>6%</span><span>12%</span></div></div>
-            <div class="rng"><div class="rng-top"><label for="eYears">Loan tenure</label><output id="oYears" for="eYears">20 years</output></div>
-              <input type="range" id="eYears" min="5" max="30" step="1" value="20"><div class="rng-ends"><span>5 years</span><span>30 years</span></div></div>
-          </div>
-          <div class="emi-out" aria-live="polite">
-            <p class="emi-label">Monthly EMI</p>
-            <p class="emi-big" id="oEmi">₹52,069<small>/ month</small></p>
-            <dl class="emi-rows">
-              <div><dt>Loan amount</dt><dd id="oLoan">₹60,00,000</dd></div>
-              <div><dt>Total interest</dt><dd id="oInt">₹64,96,655</dd></div>
-              <div><dt>Total you repay</dt><dd id="oTotal">₹1,24,96,655</dd></div>
-            </dl>
-            <div class="emi-bar" aria-hidden="true"><i class="bp" id="bP" style="width:48%"></i><i class="bi" id="bI" style="width:52%"></i></div>
-            <div class="emi-key"><span>Principal</span><span>Interest</span></div>
-            <p class="emi-note">An estimate for planning only. Your bank sets the actual rate and EMI.</p>
-          </div>
-        </div>
+      <p class="label mats-head">Materials we work in</p>
+      <div class="materials">
+        <div class="mat"><i class="m-marble"></i><span>Statuario marble</span></div>
+        <div class="mat"><i class="m-teak"></i><span>Teak</span></div>
+        <div class="mat"><i class="m-bronze"></i><span>Brushed bronze</span></div>
+        <div class="mat"><i class="m-travertine"></i><span>Travertine</span></div>
+        <div class="mat"><i class="m-basalt"></i><span>Basalt</span></div>
       </div>
+      <div class="actions"><a class="btn btn-brass" href="#contact" data-intent="Commission a home">Discuss your plot</a></div>
     </div>
   </section>
 
-  <section class="band band-alt" id="services" aria-labelledby="svcTitle">
+  <section class="band band-2" id="engineering" aria-labelledby="engTitle">
     <div class="wrap">
-      <div class="head-row">
-        <div><p class="kicker">Construction</p><h2 id="svcTitle">Build on your land with us</h2></div>
-        <p>The crews that build our own projects also build for clients. One team carries the work from the soil report to the handover, with a schedule we report against every week.</p>
+      <div class="intro">
+        <div><p class="label">Engineering</p><h2 id="engTitle">The construction company <em>behind</em> every address.</h2></div>
+        <p>We build our own towers and the homes our clients commission, with the same crews and the same standards.</p>
       </div>
-      <div class="services">
-        <article class="svc">
-          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M3 24h15l5 20h18l5-20h15"/><path d="M3 34h12M49 34h12M3 44h16M45 44h16M3 54h58" stroke-dasharray="2 4"/><path class="acc" d="M60 6L46 14l-8 14"/><path class="acc" d="M33 26l5 8 6-5z"/></svg>
-          <h3>Earthworks &amp; excavation</h3>
-          <p>Site clearance, bulk excavation, shoring and dewatering for deep basements.</p>
-          <p class="tag">Cut &amp; fill · Shoring · Dewatering</p>
-        </article>
-        <article class="svc">
-          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M6 20h52v10H6z"/><path class="acc" d="M15 30v28M32 30v28M49 30v28"/><path d="M3 40h8M19 40h9M36 40h9M53 40h8" stroke-dasharray="2 4"/><path d="M12 14l4-6M30 14l4-6M48 14l4-6"/></svg>
-          <h3>Foundations &amp; piling</h3>
-          <p>Bored piles, pile caps and raft foundations matched to the soil report.</p>
-          <p class="tag">Bored piles · Pile caps · Rafts</p>
-        </article>
-        <article class="svc">
-          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M10 58V8M32 58V8M54 58V8M10 8h44M10 24h44M10 41h44M4 58h56"/><path class="acc" d="M10 41l22-17M32 41l22-17"/></svg>
-          <h3>Structural frames</h3>
-          <p>Reinforced concrete and structural steel frames, shear cores and post-tensioned slabs.</p>
-          <p class="tag">RCC · Steel · PT slabs</p>
-        </article>
-        <article class="svc">
-          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M18 58V12M24 58V12M18 20h6M18 30h6M18 40h6M18 50h6M8 12h52M8 16h52M21 3v9M21 3L56 12M21 3L8 12M8 58h26"/><path class="acc" d="M46 16v20M42 36h8v6h-8z"/></svg>
-          <h3>High-rise construction</h3>
-          <p>Climbing cranes, jump-form cores and floor cycles planned to the day.</p>
-          <p class="tag">Jump-form · Tower cranes · Floor cycles</p>
-        </article>
-        <article class="svc">
-          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M16 60V6h32v54M27 6v54M37 6v54M16 16h32M16 27h32M16 38h32M16 49h32M8 60h48"/><path class="acc" d="M27 27h10v11H27z"/><path class="acc" d="M54 30l-6 4M54 38l-6-4"/></svg>
-          <h3>Facades &amp; envelope</h3>
-          <p>Curtain walls, unitised glazing and cladding, installed and water-tested on site.</p>
-          <p class="tag">Curtain wall · Cladding · Glazing</p>
-        </article>
-        <article class="svc">
-          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M8 6v50h50"/><path d="M14 14h18M22 24h20M38 44h14"/><path class="acc" d="M30 34h18"/><path d="M40 8v48" stroke-dasharray="2 4"/></svg>
-          <h3>Design-build &amp; project management</h3>
-          <p>One contract from drawings to handover, with cost and progress reported every week.</p>
-          <p class="tag">Design-build · Cost control · Scheduling</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="band" id="sectors" aria-labelledby="secTitle">
-    <div class="wrap">
-      <div class="head-row">
-        <div><p class="kicker">Sectors</p><h2 id="secTitle">What we build</h2></div>
-        <p>Point at a model to watch it go up again. We build for our own developments and for clients in every one of these sectors.</p>
-      </div>
-      <div class="sectors">
-        <article class="sector" tabindex="0"><div class="model"><div class="iso" data-model="res"></div></div>
-          <div class="sector-body"><h3>Residential towers</h3><p>High-rise apartments, gated communities and serviced residences.</p></div></article>
-        <article class="sector" tabindex="0"><div class="model"><div class="iso" data-model="com" style="--rz:-20deg"></div></div>
-          <div class="sector-body"><h3>Commercial &amp; offices</h3><p>Office towers, retail podiums and mixed-use blocks.</p></div></article>
-        <article class="sector" tabindex="0"><div class="model"><div class="iso" data-model="ind"></div></div>
-          <div class="sector-body"><h3>Industrial &amp; logistics</h3><p>Factories, warehouses and cold-chain sheds with heavy-duty floors.</p></div></article>
-        <article class="sector" tabindex="0"><div class="model"><div class="iso" data-model="inf"></div></div>
-          <div class="sector-body"><h3>Infrastructure</h3><p>Bridges, flyovers, metro stations and civic buildings.</p></div></article>
+      <div class="caps">
+        <div><b>i</b><div><h4>Deep basements</h4><p>Shoring, dewatering and excavation for multi-level basements on tight city plots.</p></div></div>
+        <div><b>ii</b><div><h4>Foundations</h4><p>Bored piles and raft foundations designed against the soil report.</p></div></div>
+        <div><b>iii</b><div><h4>High-rise structure</h4><p>Jump-form cores, post-tensioned slabs and climbing tower cranes.</p></div></div>
+        <div><b>iv</b><div><h4>Facades and finishes</h4><p>Unitised glazing, stone cladding and interiors fitted by our own teams.</p></div></div>
       </div>
     </div>
   </section>
 
   <section class="band" id="contact" aria-labelledby="ctaTitle">
     <div class="wrap contact">
-      <div class="intro">
-        <p class="kicker">Talk to us</p>
-        <h2 id="ctaTitle">Buying, investing or building?</h2>
-        <p>Tell us what you are looking for, your budget and where. We will set up a site visit or a meeting.</p>
-        <ol class="next">
-          <li><b>01</b><span>Tell us what you want to buy or build.</span></li>
-          <li><b>02</b><span>Visit a site or a model flat with our team.</span></li>
-          <li><b>03</b><span>Get a home that fits your budget, or a costed build plan.</span></li>
-        </ol>
+      <div>
+        <p class="label">Private enquiries</p>
+        <h2 id="ctaTitle">Begin a <em>conversation</em>.</h2>
+        <p class="intro-p">Tell us whether you would like to own a residence or commission a home. We will arrange a private viewing or a meeting at a time that suits you.</p>
       </div>
       <form class="form" id="enquiry" novalidate>
         <div class="field"><label for="fName">Name</label><input id="fName" name="name" autocomplete="name" required></div>
-        <div class="field"><label for="fContact">Email or phone</label><input id="fContact" name="contact" autocomplete="email" required></div>
-        <div class="field"><label for="fIntent">I'm looking to</label>
-          <select id="fIntent" name="intent"><option>Buy a home</option><option>Buy a plot</option><option>Buy or lease commercial space</option><option>Invest in property</option><option>Build on my own plot</option><option>Hire VLL as a contractor</option><option>Something else</option></select></div>
-        <div class="field"><label for="fBudget">Budget</label>
-          <select id="fBudget" name="budget"><option>Under ₹50 L</option><option>₹50 L to ₹1 Cr</option><option>₹1 Cr to ₹2 Cr</option><option>Above ₹2 Cr</option><option selected>Not sure yet</option></select></div>
-        <div class="field full"><label for="fPlot">Location</label><input id="fPlot" name="location" placeholder="Area you want to live in, or where your plot is"></div>
-        <div class="field full"><label for="fMsg">What are you looking for?</label><textarea id="fMsg" name="message" placeholder="For example: a 3 BHK near a metro station, or a 2-floor home on a 30 × 40 plot"></textarea></div>
-        <div class="form-foot">
-          <button class="btn btn-accent" type="submit">Request a call back</button>
-          <p class="form-note" id="formNote" role="status">Name and contact details are required.</p>
-        </div>
+        <div class="field"><label for="fContact">Phone or email</label><input id="fContact" name="contact" autocomplete="email" required></div>
+        <div class="field"><label for="fIntent">Interest</label><select id="fIntent" name="intent"><option>Own a residence</option><option>Commission a home</option><option>Invest</option><option>Something else</option></select></div>
+        <div class="field"><label for="fTime">Best time to call</label><select id="fTime" name="time"><option>Morning</option><option>Afternoon</option><option>Evening</option></select></div>
+        <div class="field full"><label for="fMsg">Message</label><textarea id="fMsg" name="message" placeholder="Anything we should know before we call"></textarea></div>
+        <div class="form-foot"><button class="btn btn-brass" type="submit">Request a call</button><p class="form-note" id="formNote" role="status">Name and a phone number or email are required.</p></div>
       </form>
     </div>
   </section>
 
   <footer class="foot">
     <div class="wrap">
-      <a class="brand" href="#top" aria-label="VLL Construction, back to top" style="margin-right:0">
-        <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="17" width="7" height="11" fill="currentColor"/><rect x="12.5" y="10" width="7" height="18" fill="currentColor"/><rect x="22" y="3" width="7" height="25" fill="var(--accent)"/><rect x="1" y="29.5" width="30" height="1.6" fill="currentColor"/></svg>
-        <span class="brand-word">VLL</span><span class="brand-sub">Construction</span>
-      </a>
-      <nav aria-label="Footer"><a href="#build">The build</a><a href="#homes">Homes</a><a href="#services">Construction</a><a href="#contact">Contact</a></nav>
-      <small>© 2026 VLL Construction</small>
+      <div class="foot-top">
+        <a class="brand" href="#top" aria-label="VLL, back to top" style="margin-right:0">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="1" y="1" width="38" height="38" stroke-width="1"/><path d="M7 11l6 19 6-19"/><path d="M22 11v19h6"/><path d="M30 7v23h5"/></svg>
+          <span class="brand-mark">VLL</span>
+        </a>
+        <nav aria-label="Footer"><a href="#build">The build</a><a href="#residences">Residences</a><a href="#bespoke">Bespoke homes</a><a href="#contact">Enquire</a></nav>
+      </div>
+      <span class="giant" aria-hidden="true">VLL</span>
+      <small>© 2026 VLL Construction &amp; Real Estate</small>
     </div>
   </footer>
 </main>
