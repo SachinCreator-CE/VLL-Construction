@@ -383,6 +383,20 @@ function buildScene(canvas) {
   [[3.6, 6.2], [5.2, 6.2], [6.4, 1.8], [6.4, -2.4]].forEach(([x, z]) => {
     const c = new T3.Mesh(coneGeo, mOrange); c.position.set(x, 0, z); c.castShadow = true; props.add(c);
   });
+  // site hoarding at the plot entrance
+  const board = new T3.Group(); board.position.set(0.6, 0, 6.35); props.add(board);
+  box(0.12, 2.3, 0.12, mDark, -1.9, 1.15, 0, board); box(0.12, 2.3, 0.12, mDark, 1.9, 1.15, 0, board);
+  const boardTex = canvasTex(512, 192, (g, w, h) => {
+    const fit = (txt, maxW, size, font) => { let z = size; do { g.font = font.replace('#', z); z -= 2; } while (g.measureText(txt).width > maxW && z > 10); };
+    g.fillStyle = '#f4f3ef'; g.fillRect(0, 0, w, h);
+    g.fillStyle = '#dc560c'; g.fillRect(0, 0, 128, h);
+    g.textBaseline = 'middle';
+    g.fillStyle = '#ffffff'; fit('VLL', 104, 60, '800 #px Archivo, Arial, sans-serif'); g.fillText('VLL', 14, h / 2);
+    g.fillStyle = '#15191d'; fit('BOOKINGS OPEN', 360, 50, '800 #px Archivo, Arial, sans-serif'); g.fillText('BOOKINGS OPEN', 146, 72);
+    g.fillStyle = '#4d5760'; fit('TOWER 01 · HOMES · OFFICES · RETAIL', 356, 24, '500 #px "IBM Plex Mono", Menlo, monospace'); g.fillText('TOWER 01 · HOMES · OFFICES · RETAIL', 148, 132);
+  });
+  const boardFace = new T3.Mesh(new T3.BoxGeometry(4.2, 1.58, 0.08), [mWhite, mWhite, mWhite, mWhite, std(0xffffff, { map: boardTex, roughness: 0.7 }), mWhite]);
+  boardFace.position.set(0, 1.55, 0.07); boardFace.castShadow = true; board.add(boardFace);
 
   /* ---- foundation: piles, rebar mats, raft ---- */
   const pileGeo = new T3.CylinderGeometry(0.2, 0.2, 2.3, 12); pileGeo.translate(0, -1.15, 0);
@@ -799,15 +813,72 @@ const MODELS = {
   ind: [[6, 40, 128, 64, 34, 0, 'solid'], [18, 48, 24, 48, 8, 34, 'glass'], [58, 48, 24, 48, 8, 34, 'glass'], [98, 48, 24, 48, 8, 34, 'glass'], [112, 12, 12, 12, 96, 0, 'solid'], [14, 10, 24, 24, 30, 0, '']],
   inf: [[16, 58, 12, 24, 46, 0, 'solid'], [64, 58, 12, 24, 46, 0, 'solid'], [112, 58, 12, 24, 46, 0, 'solid'], [0, 56, 140, 28, 6, 46, 'solid'], [66, 46, 8, 8, 66, 52, 'solid'], [66, 86, 8, 8, 66, 52, 'solid']]
 };
-$$('.iso[data-model]').forEach(iso => {
-  (MODELS[iso.dataset.model] || []).forEach((m, i) => {
+const HOME_MODELS = {
+  apartments: [[8, 14, 124, 112, 10, 0, 'solid'], [20, 26, 40, 40, 150, 10, ''], [80, 70, 40, 40, 104, 10, 'glass'], [86, 22, 30, 30, 58, 10, ''], [16, 86, 14, 14, 22, 10, 'green'], [42, 98, 12, 12, 18, 10, 'green']],
+  villas: [[4, 4, 132, 132, 3, 0, 'green solid'], [62, 4, 16, 132, 4, 0, 'solid'],
+    [12, 10, 38, 30, 26, 3, ''], [16, 12, 26, 24, 14, 29, 'glass'], [12, 54, 38, 30, 26, 3, ''], [16, 56, 26, 24, 14, 29, 'glass'], [12, 98, 38, 30, 26, 3, ''], [16, 100, 26, 24, 14, 29, 'glass'],
+    [90, 10, 38, 30, 26, 3, ''], [98, 12, 26, 24, 14, 29, 'glass'], [90, 54, 38, 30, 26, 3, ''], [98, 56, 26, 24, 14, 29, 'glass'], [90, 98, 38, 30, 26, 3, ''], [98, 100, 26, 24, 14, 29, 'glass'],
+    [52, 44, 8, 8, 22, 3, 'green'], [80, 88, 8, 8, 22, 3, 'green']],
+  plots: [[4, 4, 132, 132, 2, 0, 'green solid'], [4, 62, 132, 16, 3, 0, 'solid'],
+    [8, 8, 28, 50, 3, 2, 'solid'], [40, 8, 28, 50, 3, 2, 'solid'], [72, 8, 28, 50, 3, 2, 'solid'], [104, 8, 28, 50, 3, 2, 'solid'],
+    [8, 82, 28, 50, 3, 2, 'solid'], [40, 82, 28, 50, 3, 2, 'solid'], [72, 82, 28, 50, 3, 2, 'solid'], [104, 82, 28, 50, 3, 2, 'solid'],
+    [76, 86, 3, 3, 32, 5, 'solid'], [95, 86, 3, 3, 32, 5, 'solid'], [76, 125, 3, 3, 32, 5, 'solid'], [95, 125, 3, 3, 32, 5, 'solid'], [74, 84, 26, 46, 3, 20, 'solid'],
+    [37, 6, 3, 3, 16, 2, 'accent'], [69, 6, 3, 3, 16, 2, 'accent'], [101, 6, 3, 3, 16, 2, 'accent'], [37, 130, 3, 3, 16, 2, 'accent']],
+  commercial: [[10, 20, 120, 100, 28, 0, 'glass'], [30, 35, 78, 62, 70, 28, ''], [46, 48, 46, 36, 40, 98, 'glass'], [12, 6, 10, 10, 18, 0, 'green'], [118, 124, 10, 10, 18, 0, 'green']]
+};
+function makeBoxes(iso, list) {
+  iso.textContent = '';
+  list.forEach((m, i) => {
     const b = document.createElement('div');
     b.className = 'b' + (m[6] ? ' ' + m[6] : '');
     b.style.cssText = '--x:' + m[0] + 'px;--y:' + m[1] + 'px;--w:' + m[2] + 'px;--d:' + m[3] + 'px;--h:' + m[4] + 'px;--z:' + m[5] + 'px;--i:' + i;
     b.innerHTML = '<i class="t"></i><i class="s1"></i><i class="s2"></i><i class="s3"></i><i class="s4"></i>';
     iso.appendChild(b);
   });
+}
+$$('.iso[data-model]').forEach(iso => makeBoxes(iso, MODELS[iso.dataset.model] || []));
+
+/* homes: property-type tabs drive the model table */
+const tabs = $$('.tab'), homeIso = $('#homeModel');
+function selectTab(key, focus) {
+  tabs.forEach(t => { const on = t.dataset.key === key; t.setAttribute('aria-selected', on ? 'true' : 'false'); t.tabIndex = on ? 0 : -1; if (on && focus) t.focus(); });
+  $$('.panel').forEach(p => { p.hidden = p.dataset.key !== key; });
+  const tab = tabs.find(t => t.dataset.key === key);
+  $('#modelName').textContent = tab ? tab.textContent : '';
+  makeBoxes(homeIso, HOME_MODELS[key] || []);
+  if (!reduceMotion) { homeIso.classList.remove('is-rising'); void homeIso.offsetWidth; homeIso.classList.add('is-rising'); }
+}
+tabs.forEach((t, i) => {
+  t.addEventListener('click', () => selectTab(t.dataset.key));
+  t.addEventListener('keydown', e => {
+    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+    e.preventDefault();
+    selectTab(tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length].dataset.key, true);
+  });
 });
+if (homeIso) makeBoxes(homeIso, HOME_MODELS.apartments);
+$$('[data-intent]').forEach(a => a.addEventListener('click', () => { const sel = $('#fIntent'); if (sel) sel.value = a.dataset.intent; }));
+
+/* EMI estimate */
+const E = { price: $('#ePrice'), down: $('#eDown'), rate: $('#eRate'), years: $('#eYears') };
+const inr = v => '₹' + new Intl.NumberFormat('en-IN', { maximumFractionDigits: 0 }).format(Math.round(v));
+const shortInr = v => v >= 1e7
+  ? '₹' + (v / 1e7).toFixed(2).replace(/(\.\d*?)0+$/, '$1').replace(/\.$/, '') + ' Cr'
+  : '₹' + (v / 1e5).toFixed(1).replace(/\.0$/, '') + ' L';
+function emiCalc() {
+  const price = +E.price.value * 1e5, dp = +E.down.value, rate = +E.rate.value, yrs = +E.years.value;
+  const P = price * (1 - dp / 100), r = rate / 1200, n = yrs * 12;
+  const m = r ? P * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1) : P / n;
+  const total = m * n, interest = total - P, pp = P / total * 100;
+  $('#oPrice').textContent = shortInr(price);
+  $('#oDown').textContent = dp + '% · ' + shortInr(price * dp / 100);
+  $('#oRate').textContent = rate.toFixed(2) + '% a year';
+  $('#oYears').textContent = yrs + ' years';
+  $('#oEmi').firstChild.nodeValue = inr(m);
+  $('#oLoan').textContent = inr(P); $('#oInt').textContent = inr(interest); $('#oTotal').textContent = inr(total);
+  $('#bP').style.width = pp.toFixed(1) + '%'; $('#bI').style.width = (100 - pp).toFixed(1) + '%';
+}
+if (E.price) { Object.keys(E).forEach(k => E[k].addEventListener('input', emiCalc)); emiCalc(); }
 
 /* service cards tilt toward the pointer */
 if (!reduceMotion && window.matchMedia && matchMedia('(hover: hover) and (pointer: fine)').matches) {

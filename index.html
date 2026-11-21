@@ -22,9 +22,9 @@
     <span class="brand-word">VLL</span><span class="brand-sub">Construction</span>
   </a>
   <nav class="topnav" aria-label="Sections">
-    <a href="#build">The build</a><a href="#services">Services</a><a href="#sectors">Sectors</a><a href="#contact">Contact</a>
+    <a href="#build">The build</a><a href="#homes">Homes</a><a href="#services">Construction</a><a href="#contact">Contact</a>
   </nav>
-  <a class="btn btn-accent btn-sm" href="#contact">Start a project</a>
+  <a class="btn btn-accent btn-sm" href="#contact">Book a site visit</a>
 </header>
 
 <aside class="readout" id="readout" aria-label="Site readout">
@@ -52,12 +52,12 @@
   <div class="story" id="build">
     <section class="step hero" style="--len:115vh" aria-label="Site survey">
       <div class="sheet"><div class="sheet-body">
-        <p class="eyebrow"><span>VLL Construction</span><span><b>S-01</b> · Site survey</span></p>
+        <p class="eyebrow"><span>Real estate &amp; construction</span><span><b>S-01</b> · Site survey</span></p>
         <h1>From the first dig to the <em>skyline</em>.</h1>
-        <p class="lede">We dig, pile, pour and raise buildings that stand for generations. Scroll down and watch one go up, block by block.</p>
+        <p class="lede">We build homes, offices and towers, and we sell them too. Buy from us, invest with us, or have us build on your plot. Scroll down and watch one go up, block by block.</p>
         <div class="actions">
           <button class="btn btn-accent" type="button" id="playBtn"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z" fill="currentColor"/></svg>Watch the build</button>
-          <a class="btn" href="#services">Our services</a>
+          <a class="btn" href="#homes">Find a home</a>
         </div>
         <p class="hint"><i></i>Scroll to build</p>
       </div>
@@ -108,10 +108,10 @@
     <section class="step" style="--len:200vh" aria-label="Skyline">
       <div class="sheet"><div class="sheet-body">
         <p class="eyebrow"><span><b>S-06</b> · Skyline</span><span>Sheet 6 of 6</span></p>
-        <h2>Light up the skyline</h2>
-        <p>Lights on, landscaping in, snag list closed. The keys change hands and the city has one more landmark. Then we start on the next one.</p>
+        <h2>Hand over the keys</h2>
+        <p>Lights on, landscaping in, snag list closed. The keys go to the families and businesses who bought in, and the city has one more landmark. Then we start on the next one.</p>
         <div class="actions">
-          <a class="btn btn-accent" href="#contact">Start a project</a>
+          <a class="btn btn-accent" href="#homes">Find a home</a>
           <button class="btn" type="button" id="againBtn">Build it again</button>
         </div>
       </div>
@@ -120,11 +120,101 @@
     </section>
   </div>
 
-  <section class="band" id="services" aria-labelledby="svcTitle">
+  <section class="band" id="homes" aria-labelledby="homesTitle">
     <div class="wrap">
       <div class="head-row">
-        <div><p class="kicker">Services</p><h2 id="svcTitle">Soil report to handover keys</h2></div>
-        <p>One team carries the project from the first survey peg to the day you move in. You get a single point of contact and a schedule we report against every week.</p>
+        <div><p class="kicker">Real estate</p><h2 id="homesTitle">Homes we build and sell</h2></div>
+        <p>We develop our own projects and sell them directly, so you deal with the builder from the day you book to the day you get the keys.</p>
+      </div>
+      <div class="homes">
+        <div class="table">
+          <p class="table-label tl">Model table · <b id="modelName">Apartments</b></p>
+          <div class="model"><div class="iso" id="homeModel"></div></div>
+          <p class="table-label bl">Scale 1:500</p>
+          <p class="table-label br"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 4l3.5 12L12 13.5 8.5 16z" fill="currentColor"/></svg>N</p>
+        </div>
+        <div>
+          <div class="tabs" role="tablist" aria-label="Property types">
+            <button class="tab" type="button" role="tab" id="tab-apartments" data-key="apartments" aria-controls="pn-apartments" aria-selected="true">Apartments</button>
+            <button class="tab" type="button" role="tab" id="tab-villas" data-key="villas" aria-controls="pn-villas" aria-selected="false" tabindex="-1">Villas</button>
+            <button class="tab" type="button" role="tab" id="tab-plots" data-key="plots" aria-controls="pn-plots" aria-selected="false" tabindex="-1">Plots</button>
+            <button class="tab" type="button" role="tab" id="tab-commercial" data-key="commercial" aria-controls="pn-commercial" aria-selected="false" tabindex="-1">Commercial</button>
+          </div>
+          <div class="panel" role="tabpanel" id="pn-apartments" data-key="apartments" aria-labelledby="tab-apartments">
+            <h3>Apartments</h3>
+            <div class="chips"><span class="chip on">For sale</span><span class="chip">Ready to move</span><span class="chip">Under construction</span></div>
+            <p>2 and 3 BHK homes in towers like the one above, with lifts, power backup, covered parking and shared amenities.</p>
+            <ul class="ticks"><li>Floor plans with the carpet area of every unit</li><li>Pick your floor and the way your home faces</li><li>Construction updates until you get the keys</li></ul>
+            <a class="btn btn-accent" href="#contact" data-intent="Buy a home">Book a site visit</a>
+          </div>
+          <div class="panel" role="tabpanel" id="pn-villas" data-key="villas" aria-labelledby="tab-villas" hidden>
+            <h3>Villas &amp; row houses</h3>
+            <div class="chips"><span class="chip on">For sale</span><span class="chip">Gated community</span></div>
+            <p>Independent homes in gated layouts, each with its own garden, terrace and parking.</p>
+            <ul class="ticks"><li>Plot area and built-up area on every plan</li><li>Choose your finishes before handover</li><li>Clubhouse and landscaped common areas</li></ul>
+            <a class="btn btn-accent" href="#contact" data-intent="Buy a home">Book a site visit</a>
+          </div>
+          <div class="panel" role="tabpanel" id="pn-plots" data-key="plots" aria-labelledby="tab-plots" hidden>
+            <h3>Plots</h3>
+            <div class="chips"><span class="chip on">For sale</span><span class="chip">Build with us</span></div>
+            <p>Residential plots in planned layouts with roads, drains and power lines laid. Buy the plot alone, or have us build your home on it.</p>
+            <ul class="ticks"><li>Layout plan and survey number for every plot</li><li>Roads and services in before registration</li><li>Home designs to choose from, built by our crews</li></ul>
+            <a class="btn btn-accent" href="#contact" data-intent="Buy a plot">Book a site visit</a>
+          </div>
+          <div class="panel" role="tabpanel" id="pn-commercial" data-key="commercial" aria-labelledby="tab-commercial" hidden>
+            <h3>Commercial spaces</h3>
+            <div class="chips"><span class="chip on">For sale</span><span class="chip on">For lease</span></div>
+            <p>Offices and shop fronts in our mixed-use buildings, on podium floors with street frontage and parking.</p>
+            <ul class="ticks"><li>Bare-shell or fitted-out units</li><li>Unit sizes to suit a single shop or a whole floor</li><li>Buy outright or lease</li></ul>
+            <a class="btn btn-accent" href="#contact" data-intent="Buy or lease commercial space">Book a site visit</a>
+          </div>
+        </div>
+      </div>
+
+      <ol class="journey" aria-label="Buying a home with VLL">
+        <li><b>01</b><h4>Visit</h4><p>See the site and a model flat with our sales team.</p></li>
+        <li><b>02</b><h4>Book</h4><p>Reserve your unit with a booking amount.</p></li>
+        <li><b>03</b><h4>Agreement &amp; loan</h4><p>Sign the agreement for sale. We help with the home loan paperwork.</p></li>
+        <li><b>04</b><h4>Watch it rise</h4><p>Get updates on your tower, floor by floor.</p></li>
+        <li><b>05</b><h4>Keys</h4><p>Registration, handover and your first night in.</p></li>
+      </ol>
+
+      <div class="emi-wrap" id="emi">
+        <p class="kicker">EMI estimate</p>
+        <h3>Plan your home loan</h3>
+        <div class="emi">
+          <div class="emi-in">
+            <div class="rng"><div class="rng-top"><label for="ePrice">Home price</label><output id="oPrice" for="ePrice">₹75 L</output></div>
+              <input type="range" id="ePrice" min="20" max="300" step="1" value="75"><div class="rng-ends"><span>₹20 L</span><span>₹3 Cr</span></div></div>
+            <div class="rng"><div class="rng-top"><label for="eDown">Down payment</label><output id="oDown" for="eDown">20% · ₹15 L</output></div>
+              <input type="range" id="eDown" min="10" max="50" step="1" value="20"><div class="rng-ends"><span>10%</span><span>50%</span></div></div>
+            <div class="rng"><div class="rng-top"><label for="eRate">Interest rate</label><output id="oRate" for="eRate">8.50% a year</output></div>
+              <input type="range" id="eRate" min="6" max="12" step="0.05" value="8.5"><div class="rng-ends"><span>6%</span><span>12%</span></div></div>
+            <div class="rng"><div class="rng-top"><label for="eYears">Loan tenure</label><output id="oYears" for="eYears">20 years</output></div>
+              <input type="range" id="eYears" min="5" max="30" step="1" value="20"><div class="rng-ends"><span>5 years</span><span>30 years</span></div></div>
+          </div>
+          <div class="emi-out" aria-live="polite">
+            <p class="emi-label">Monthly EMI</p>
+            <p class="emi-big" id="oEmi">₹52,069<small>/ month</small></p>
+            <dl class="emi-rows">
+              <div><dt>Loan amount</dt><dd id="oLoan">₹60,00,000</dd></div>
+              <div><dt>Total interest</dt><dd id="oInt">₹64,96,655</dd></div>
+              <div><dt>Total you repay</dt><dd id="oTotal">₹1,24,96,655</dd></div>
+            </dl>
+            <div class="emi-bar" aria-hidden="true"><i class="bp" id="bP" style="width:48%"></i><i class="bi" id="bI" style="width:52%"></i></div>
+            <div class="emi-key"><span>Principal</span><span>Interest</span></div>
+            <p class="emi-note">An estimate for planning only. Your bank sets the actual rate and EMI.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band-alt" id="services" aria-labelledby="svcTitle">
+    <div class="wrap">
+      <div class="head-row">
+        <div><p class="kicker">Construction</p><h2 id="svcTitle">Build on your land with us</h2></div>
+        <p>The crews that build our own projects also build for clients. One team carries the work from the soil report to the handover, with a schedule we report against every week.</p>
       </div>
       <div class="services">
         <article class="svc">
@@ -167,11 +257,11 @@
     </div>
   </section>
 
-  <section class="band band-alt" id="sectors" aria-labelledby="secTitle">
+  <section class="band" id="sectors" aria-labelledby="secTitle">
     <div class="wrap">
       <div class="head-row">
         <div><p class="kicker">Sectors</p><h2 id="secTitle">What we build</h2></div>
-        <p>Point at a model to watch it go up again. The same crews, plant and site discipline carry across every sector we work in.</p>
+        <p>Point at a model to watch it go up again. We build for our own developments and for clients in every one of these sectors.</p>
       </div>
       <div class="sectors">
         <article class="sector" tabindex="0"><div class="model"><div class="iso" data-model="res"></div></div>
@@ -189,26 +279,26 @@
   <section class="band" id="contact" aria-labelledby="ctaTitle">
     <div class="wrap contact">
       <div class="intro">
-        <p class="kicker">Start a project</p>
-        <h2 id="ctaTitle">Have a site? Let's break ground.</h2>
-        <p>Tell us about the plot, the timeline and what you want to build.</p>
+        <p class="kicker">Talk to us</p>
+        <h2 id="ctaTitle">Buying, investing or building?</h2>
+        <p>Tell us what you are looking for, your budget and where. We will set up a site visit or a meeting.</p>
         <ol class="next">
-          <li><b>01</b><span>Share the plot details, the drawings or just the idea.</span></li>
-          <li><b>02</b><span>We visit the site and review the soil report with you.</span></li>
-          <li><b>03</b><span>You get a costed plan and a build schedule.</span></li>
+          <li><b>01</b><span>Tell us what you want to buy or build.</span></li>
+          <li><b>02</b><span>Visit a site or a model flat with our team.</span></li>
+          <li><b>03</b><span>Get a home that fits your budget, or a costed build plan.</span></li>
         </ol>
       </div>
       <form class="form" id="enquiry" novalidate>
         <div class="field"><label for="fName">Name</label><input id="fName" name="name" autocomplete="name" required></div>
         <div class="field"><label for="fContact">Email or phone</label><input id="fContact" name="contact" autocomplete="email" required></div>
-        <div class="field"><label for="fType">Project type</label>
-          <select id="fType" name="type"><option>Residential tower</option><option>Commercial or office</option><option>Industrial or logistics</option><option>Infrastructure</option><option>Something else</option></select></div>
-        <div class="field"><label for="fStart">Expected start</label>
-          <select id="fStart" name="start"><option>Within 3 months</option><option>3 to 6 months</option><option>6 to 12 months</option><option>Not decided yet</option></select></div>
-        <div class="field full"><label for="fPlot">Plot location</label><input id="fPlot" name="plot" placeholder="City, area or survey number"></div>
-        <div class="field full"><label for="fMsg">About the project</label><textarea id="fMsg" name="message" placeholder="Plot size, number of floors, anything you already have"></textarea></div>
+        <div class="field"><label for="fIntent">I'm looking to</label>
+          <select id="fIntent" name="intent"><option>Buy a home</option><option>Buy a plot</option><option>Buy or lease commercial space</option><option>Invest in property</option><option>Build on my own plot</option><option>Hire VLL as a contractor</option><option>Something else</option></select></div>
+        <div class="field"><label for="fBudget">Budget</label>
+          <select id="fBudget" name="budget"><option>Under ₹50 L</option><option>₹50 L to ₹1 Cr</option><option>₹1 Cr to ₹2 Cr</option><option>Above ₹2 Cr</option><option selected>Not sure yet</option></select></div>
+        <div class="field full"><label for="fPlot">Location</label><input id="fPlot" name="location" placeholder="Area you want to live in, or where your plot is"></div>
+        <div class="field full"><label for="fMsg">What are you looking for?</label><textarea id="fMsg" name="message" placeholder="For example: a 3 BHK near a metro station, or a 2-floor home on a 30 × 40 plot"></textarea></div>
         <div class="form-foot">
-          <button class="btn btn-accent" type="submit">Send enquiry</button>
+          <button class="btn btn-accent" type="submit">Request a call back</button>
           <p class="form-note" id="formNote" role="status">Name and contact details are required.</p>
         </div>
       </form>
@@ -221,7 +311,7 @@
         <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="17" width="7" height="11" fill="currentColor"/><rect x="12.5" y="10" width="7" height="18" fill="currentColor"/><rect x="22" y="3" width="7" height="25" fill="var(--accent)"/><rect x="1" y="29.5" width="30" height="1.6" fill="currentColor"/></svg>
         <span class="brand-word">VLL</span><span class="brand-sub">Construction</span>
       </a>
-      <nav aria-label="Footer"><a href="#build">The build</a><a href="#services">Services</a><a href="#sectors">Sectors</a><a href="#contact">Contact</a></nav>
+      <nav aria-label="Footer"><a href="#build">The build</a><a href="#homes">Homes</a><a href="#services">Construction</a><a href="#contact">Contact</a></nav>
       <small>© 2026 VLL Construction</small>
     </div>
   </footer>
