@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VLL Construction</title>
+<meta name="description" content="VLL Construction builds from the first dig to the skyline. Scroll to watch a tower go up block by block.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<canvas id="stage" aria-hidden="true"></canvas>
+<p class="stage-note" id="stageNote" hidden>The 3D site view couldn't start on this device. The rest of the page works as normal.</p>
+
+<header class="topbar">
+  <a class="brand" href="#top" aria-label="VLL Construction, back to top">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="17" width="7" height="11" fill="var(--ink)"/><rect x="12.5" y="10" width="7" height="18" fill="var(--ink)"/><rect x="22" y="3" width="7" height="25" fill="var(--accent)"/><rect x="1" y="29.5" width="30" height="1.6" fill="var(--ink)"/></svg>
+    <span class="brand-word">VLL</span><span class="brand-sub">Construction</span>
+  </a>
+  <nav class="topnav" aria-label="Sections">
+    <a href="#build">The build</a><a href="#services">Services</a><a href="#sectors">Sectors</a><a href="#contact">Contact</a>
+  </nav>
+  <a class="btn btn-accent btn-sm" href="#contact">Start a project</a>
+</header>
+
+<aside class="readout" id="readout" aria-label="Site readout">
+  <div class="ro-head"><span>VLL · Tower 01</span><span>Site readout</span></div>
+  <div class="ro-stage"><span id="roSheet">S-01</span><b id="roName">Site survey</b></div>
+  <ol class="ro-steps">
+    <li><button type="button" data-go="0" aria-label="Go to S-01, site survey"><i></i></button></li>
+    <li><button type="button" data-go="1" aria-label="Go to S-02, excavation"><i></i></button></li>
+    <li><button type="button" data-go="2" aria-label="Go to S-03, foundation"><i></i></button></li>
+    <li><button type="button" data-go="3" aria-label="Go to S-04, superstructure"><i></i></button></li>
+    <li><button type="button" data-go="4" aria-label="Go to S-05, envelope"><i></i></button></li>
+    <li><button type="button" data-go="5" aria-label="Go to S-06, skyline"><i></i></button></li>
+  </ol>
+  <dl class="ro-grid">
+    <div><dt>Depth</dt><dd id="roDepth">0.0 m</dd></div>
+    <div><dt>Concrete</dt><dd id="roConc">0 m³</dd></div>
+    <div><dt>Modules</dt><dd id="roMods">0</dd></div>
+    <div><dt>Height</dt><dd id="roHeight">0.0 m</dd></div>
+  </dl>
+</aside>
+
+<div class="timelapse" id="timelapse" hidden><span>Timelapse playing</span><button class="btn" type="button" id="stopBtn">Stop</button></div>
+
+<main id="top">
+  <div class="story" id="build">
+    <section class="step hero" style="--len:115vh" aria-label="Site survey">
+      <div class="sheet"><div class="sheet-body">
+        <p class="eyebrow"><span>VLL Construction</span><span><b>S-01</b> · Site survey</span></p>
+        <h1>From the first dig to the <em>skyline</em>.</h1>
+        <p class="lede">We dig, pile, pour and raise buildings that stand for generations. Scroll down and watch one go up, block by block.</p>
+        <div class="actions">
+          <button class="btn btn-accent" type="button" id="playBtn"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z" fill="currentColor"/></svg>Watch the build</button>
+          <a class="btn" href="#services">Our services</a>
+        </div>
+        <p class="hint"><i></i>Scroll to build</p>
+      </div>
+      <dl class="spec"><div><dt>Plot</dt><dd>42 × 42 m</dd></div><div><dt>Footprint</dt><dd>18 × 18 m</dd></div><div><dt>Datum</dt><dd>RL ±0.00</dd></div></dl>
+      </div>
+    </section>
+
+    <section class="step" style="--len:170vh" aria-label="Excavation">
+      <div class="sheet"><div class="sheet-body">
+        <p class="eyebrow"><span><b>S-02</b> · Excavation</span><span>Sheet 2 of 6</span></p>
+        <h2>Break ground</h2>
+        <p>Every tower starts below the surface. Our earthworks crews set out the grid, shore the sides and cut the pit down to formation level, one bucket at a time.</p>
+      </div>
+      <dl class="spec"><div><dt>Cut</dt><dd>18 × 18 m</dd></div><div><dt>Depth</dt><dd>RL −10.50 m</dd></div><div><dt>Spoil</dt><dd>3,402 m³</dd></div></dl>
+      </div>
+    </section>
+
+    <section class="step" style="--len:150vh" aria-label="Foundation">
+      <div class="sheet"><div class="sheet-body">
+        <p class="eyebrow"><span><b>S-03</b> · Foundation</span><span>Sheet 3 of 6</span></p>
+        <h2>Pile, tie, pour</h2>
+        <p>Bored piles carry the load down to firm strata. We tie two mats of reinforcement over them and pour the raft in one continuous session, so it cures as a single slab.</p>
+      </div>
+      <dl class="spec"><div><dt>Piles</dt><dd>16 × Ø600</dd></div><div><dt>Rebar</dt><dd>T25 @ 150</dd></div><div><dt>Raft</dt><dd>1,134 m³ M40</dd></div></dl>
+      </div>
+    </section>
+
+    <section class="step" style="--len:250vh" aria-label="Superstructure">
+      <div class="sheet"><div class="sheet-body">
+        <p class="eyebrow"><span><b>S-04</b> · Superstructure</span><span>Sheet 4 of 6</span></p>
+        <h2>Block by block</h2>
+        <p>The core and frame rise one level at a time. A climbing tower crane rides up with the building and lifts every module into place on a steady floor cycle.</p>
+      </div>
+      <dl class="spec"><div><dt>Levels</dt><dd>B2 + 36</dd></div><div><dt>Floor to floor</dt><dd>3.5 m</dd></div><div><dt>Modules</dt><dd>728</dd></div></dl>
+      </div>
+    </section>
+
+    <section class="step" style="--len:150vh" aria-label="Envelope">
+      <div class="sheet"><div class="sheet-body">
+        <p class="eyebrow"><span><b>S-05</b> · Envelope</span><span>Sheet 5 of 6</span></p>
+        <h2>Close it in</h2>
+        <p>Unitised glass panels go on floor by floor, sealed against monsoon rain and tuned to cut heat gain. Then the crane comes down and the spire goes up.</p>
+      </div>
+      <dl class="spec"><div><dt>Facade units</dt><dd>144</dd></div><div><dt>Glazing</dt><dd>Low-E DGU</dd></div><div><dt>Spire tip</dt><dd>147 m</dd></div></dl>
+      </div>
+    </section>
+
+    <section class="step" style="--len:200vh" aria-label="Skyline">
+      <div class="sheet"><div class="sheet-body">
+        <p class="eyebrow"><span><b>S-06</b> · Skyline</span><span>Sheet 6 of 6</span></p>
+        <h2>Light up the skyline</h2>
+        <p>Lights on, landscaping in, snag list closed. The keys change hands and the city has one more landmark. Then we start on the next one.</p>
+        <div class="actions">
+          <a class="btn btn-accent" href="#contact">Start a project</a>
+          <button class="btn" type="button" id="againBtn">Build it again</button>
+        </div>
+      </div>
+      <dl class="spec"><div><dt>Height</dt><dd>147 m</dd></div><div><dt>Levels</dt><dd>38</dd></div><div><dt>Status</dt><dd>Handed over</dd></div></dl>
+      </div>
+    </section>
+  </div>
+
+  <section class="band" id="services" aria-labelledby="svcTitle">
+    <div class="wrap">
+      <div class="head-row">
+        <div><p class="kicker">Services</p><h2 id="svcTitle">Soil report to handover keys</h2></div>
+        <p>One team carries the project from the first survey peg to the day you move in. You get a single point of contact and a schedule we report against every week.</p>
+      </div>
+      <div class="services">
+        <article class="svc">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M3 24h15l5 20h18l5-20h15"/><path d="M3 34h12M49 34h12M3 44h16M45 44h16M3 54h58" stroke-dasharray="2 4"/><path class="acc" d="M60 6L46 14l-8 14"/><path class="acc" d="M33 26l5 8 6-5z"/></svg>
+          <h3>Earthworks &amp; excavation</h3>
+          <p>Site clearance, bulk excavation, shoring and dewatering for deep basements.</p>
+          <p class="tag">Cut &amp; fill · Shoring · Dewatering</p>
+        </article>
+        <article class="svc">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M6 20h52v10H6z"/><path class="acc" d="M15 30v28M32 30v28M49 30v28"/><path d="M3 40h8M19 40h9M36 40h9M53 40h8" stroke-dasharray="2 4"/><path d="M12 14l4-6M30 14l4-6M48 14l4-6"/></svg>
+          <h3>Foundations &amp; piling</h3>
+          <p>Bored piles, pile caps and raft foundations matched to the soil report.</p>
+          <p class="tag">Bored piles · Pile caps · Rafts</p>
+        </article>
+        <article class="svc">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M10 58V8M32 58V8M54 58V8M10 8h44M10 24h44M10 41h44M4 58h56"/><path class="acc" d="M10 41l22-17M32 41l22-17"/></svg>
+          <h3>Structural frames</h3>
+          <p>Reinforced concrete and structural steel frames, shear cores and post-tensioned slabs.</p>
+          <p class="tag">RCC · Steel · PT slabs</p>
+        </article>
+        <article class="svc">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M18 58V12M24 58V12M18 20h6M18 30h6M18 40h6M18 50h6M8 12h52M8 16h52M21 3v9M21 3L56 12M21 3L8 12M8 58h26"/><path class="acc" d="M46 16v20M42 36h8v6h-8z"/></svg>
+          <h3>High-rise construction</h3>
+          <p>Climbing cranes, jump-form cores and floor cycles planned to the day.</p>
+          <p class="tag">Jump-form · Tower cranes · Floor cycles</p>
+        </article>
+        <article class="svc">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M16 60V6h32v54M27 6v54M37 6v54M16 16h32M16 27h32M16 38h32M16 49h32M8 60h48"/><path class="acc" d="M27 27h10v11H27z"/><path class="acc" d="M54 30l-6 4M54 38l-6-4"/></svg>
+          <h3>Facades &amp; envelope</h3>
+          <p>Curtain walls, unitised glazing and cladding, installed and water-tested on site.</p>
+          <p class="tag">Curtain wall · Cladding · Glazing</p>
+        </article>
+        <article class="svc">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M8 6v50h50"/><path d="M14 14h18M22 24h20M38 44h14"/><path class="acc" d="M30 34h18"/><path d="M40 8v48" stroke-dasharray="2 4"/></svg>
+          <h3>Design-build &amp; project management</h3>
+          <p>One contract from drawings to handover, with cost and progress reported every week.</p>
+          <p class="tag">Design-build · Cost control · Scheduling</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band-alt" id="sectors" aria-labelledby="secTitle">
+    <div class="wrap">
+      <div class="head-row">
+        <div><p class="kicker">Sectors</p><h2 id="secTitle">What we build</h2></div>
+        <p>Point at a model to watch it go up again. The same crews, plant and site discipline carry across every sector we work in.</p>
+      </div>
+      <div class="sectors">
+        <article class="sector" tabindex="0"><div class="model"><div class="iso" data-model="res"></div></div>
+          <div class="sector-body"><h3>Residential towers</h3><p>High-rise apartments, gated communities and serviced residences.</p></div></article>
+        <article class="sector" tabindex="0"><div class="model"><div class="iso" data-model="com" style="--rz:-20deg"></div></div>
+          <div class="sector-body"><h3>Commercial &amp; offices</h3><p>Office towers, retail podiums and mixed-use blocks.</p></div></article>
+        <article class="sector" tabindex="0"><div class="model"><div class="iso" data-model="ind"></div></div>
+          <div class="sector-body"><h3>Industrial &amp; logistics</h3><p>Factories, warehouses and cold-chain sheds with heavy-duty floors.</p></div></article>
+        <article class="sector" tabindex="0"><div class="model"><div class="iso" data-model="inf"></div></div>
+          <div class="sector-body"><h3>Infrastructure</h3><p>Bridges, flyovers, metro stations and civic buildings.</p></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="contact" aria-labelledby="ctaTitle">
+    <div class="wrap contact">
+      <div class="intro">
+        <p class="kicker">Start a project</p>
+        <h2 id="ctaTitle">Have a site? Let's break ground.</h2>
+        <p>Tell us about the plot, the timeline and what you want to build.</p>
+        <ol class="next">
+          <li><b>01</b><span>Share the plot details, the drawings or just the idea.</span></li>
+          <li><b>02</b><span>We visit the site and review the soil report with you.</span></li>
+          <li><b>03</b><span>You get a costed plan and a build schedule.</span></li>
+        </ol>
+      </div>
+      <form class="form" id="enquiry" novalidate>
+        <div class="field"><label for="fName">Name</label><input id="fName" name="name" autocomplete="name" required></div>
+        <div class="field"><label for="fContact">Email or phone</label><input id="fContact" name="contact" autocomplete="email" required></div>
+        <div class="field"><label for="fType">Project type</label>
+          <select id="fType" name="type"><option>Residential tower</option><option>Commercial or office</option><option>Industrial or logistics</option><option>Infrastructure</option><option>Something else</option></select></div>
+        <div class="field"><label for="fStart">Expected start</label>
+          <select id="fStart" name="start"><option>Within 3 months</option><option>3 to 6 months</option><option>6 to 12 months</option><option>Not decided yet</option></select></div>
+        <div class="field full"><label for="fPlot">Plot location</label><input id="fPlot" name="plot" placeholder="City, area or survey number"></div>
+        <div class="field full"><label for="fMsg">About the project</label><textarea id="fMsg" name="message" placeholder="Plot size, number of floors, anything you already have"></textarea></div>
+        <div class="form-foot">
+          <button class="btn btn-accent" type="submit">Send enquiry</button>
+          <p class="form-note" id="formNote" role="status">Name and contact details are required.</p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div class="wrap">
+      <a class="brand" href="#top" aria-label="VLL Construction, back to top" style="margin-right:0">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="17" width="7" height="11" fill="currentColor"/><rect x="12.5" y="10" width="7" height="18" fill="currentColor"/><rect x="22" y="3" width="7" height="25" fill="var(--accent)"/><rect x="1" y="29.5" width="30" height="1.6" fill="currentColor"/></svg>
+        <span class="brand-word">VLL</span><span class="brand-sub">Construction</span>
+      </a>
+      <nav aria-label="Footer"><a href="#build">The build</a><a href="#services">Services</a><a href="#sectors">Sectors</a><a href="#contact">Contact</a></nav>
+      <small>© 2026 VLL Construction</small>
+    </div>
+  </footer>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
